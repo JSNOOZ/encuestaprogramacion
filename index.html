@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Interactivo</title>
+  <script src="js/Vue.js"></script>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <div id="app">
+    <form @submit.prevent="manejarEnvio">
+      <label for="programar">¿Te gusta programar?</label>
+        <div>
+        <label>
+          <input type="radio" v-model="teGustaProgramar" value="si" /> Sí
+        </label>
+        <label>
+          <input type="radio" v-model="teGustaProgramar" value="no" /> No
+        </label>
+      </div>
+ 
+
+      <div v-if="teGustaProgramar === 'si'">
+        <label for="anios">¿Cuántos años llevas programando?</label>
+        <input type="number" v-model="aniosProgramando" min="0" />
+        <div v-if="aniosProgramando > 0">
+            <label for="experiencias">¿Cuáles son tus experiencias programando?</label>
+            <textarea v-model="experiencias" placeholder="Escribe tus experiencias..."></textarea>
+          </div>
+ 
+        <label for="lenguajes">¿Qué lenguajes conoces?</label>
+        <input type="text" v-model="lenguajesConocidos" />
+        <p>{{lenguajesConocidos}}</p>
+ 
+        <div>
+          <button type="button" @click="agregarLenguaje">Agregar Lenguaje</button>
+          <ul>
+            <li v-for="(lenguaje, indice) in listaLenguajes" :key="indice">{{ lenguaje }}</li>
+          </ul>
+        </div>
+      </div>
+      <div v-if="teGustaProgramar === 'no'">
+        <p>¡Gracias por responder!</p>
+      </div>
+ 
+      <button type="submit" :disabled="!teGustaProgramar">Enviar</button>
+    </form>
+  </div>
+ 
+<script src="js/java.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
